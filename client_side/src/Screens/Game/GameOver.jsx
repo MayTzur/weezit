@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ImageBackground, View, SafeAreaView, ActivityIndicator } from 'react-native';
 import Constants from 'expo-constants';
-import { Headline, Text, Button } from 'react-native-paper';
+import { Text, Button } from 'react-native-paper';
 const { width, height } = Dimensions.get('screen');
-import { getRandomInt, gameResult } from '../../functions/player';
+import { gameResult } from '../../functions/player';
 
 class GameOver extends React.Component {
     static navigationOptions = {
@@ -12,8 +12,7 @@ class GameOver extends React.Component {
 
     constructor(props){
         super(props);
-        console.log('*** GameOver Component ***');
-        console.log('GameOver props=', props);
+
         this.userId = props.navigation.state.params.userId;
         this.isWon = props.navigation.state.params.isWon;
         this.state = {
@@ -24,12 +23,8 @@ class GameOver extends React.Component {
     }
 
     componentDidMount(){
-        console.log('*** GameOver componentDidMount ***');
         const { isWon, userId } = this;
-        console.log('isWon=', isWon);
-        console.log('userId=', userId);
         gameResult(userId, isWon);
-        let i;
         if(isWon){
             this.setState({
                 txtResult:'Congratulations!\nYou are the winner of the game',
@@ -81,20 +76,14 @@ export default GameOver;
 
 const styles = StyleSheet.create({
     container: {
-        //flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: Constants.statusBarHeight,
-        //backgroundColor: '#ecf0f1',
         paddingHorizontal: 10,
-        //flexWrap: 'wrap',
     },
     container1: {
-        //flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        //paddingTop: Constants.statusBarHeight,
-        //backgroundColor: Colors.yellow100,
         width: width/1.1,
         borderRadius: 9,
         height: height/1.3,
@@ -107,7 +96,6 @@ const styles = StyleSheet.create({
         width: width/1.1,
         height: height/9.2,
         alignSelf: 'flex-start',
-        //backgroundColor: Colors.purple500,
     },
     remainingTime: {
         fontSize: 46,
@@ -123,20 +111,15 @@ const styles = StyleSheet.create({
     },
     btn: {
         margin: 7,
-        //margin: 10,
         borderRadius: 6,
-        //borderColor: Colors.greenA700,
         borderWidth: 1,
         alignItems: 'center',
         width: width/1.3,
-        //
-        //backgroundColor: Colors.purple500, 
     },
     questionTxt: {
         fontWeight:'bold',
         margin: 12,
         fontSize: 19,
-        //justifyContent: 'center',
         textAlign: 'center',
     },
     questionCon: {
@@ -175,7 +158,6 @@ const styles = StyleSheet.create({
     textStyle: {
         fontSize: 28,
         fontWeight: 'bold',
-        //fontFamily: 'Menlo',
         marginBottom: 14
     }
   });
