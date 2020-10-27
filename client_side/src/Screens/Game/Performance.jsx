@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, SafeAreaView, Dimensions, ImageBackground, ActivityIndicator, ScrollView  } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, SafeAreaView, ImageBackground, ActivityIndicator, ScrollView  } from 'react-native';
 import { InLeaders, GoodJob, TopFour, NotLeader } from '../../Componoents/Sentences';
 import LottieView from 'lottie-react-native';
 import { GetList } from '../../Componoents/GetList';
-const { width, height } = Dimensions.get('screen');
 
 class Performance extends React.Component {
     constructor(props){
         super(props);
-        console.log('*** Performance Component ***');
         this.user = props.navigation.state.params.user
         this.state = {
             leaders: [],
@@ -21,13 +19,9 @@ class Performance extends React.Component {
         }
     }
 
-    componentDidMount = async () => { //---
-        console.log('*** componentDidMount function ***');
-
+    componentDidMount = async () => { 
         const { user } = this.props.navigation.state.params;
-        console.log('user=', user);
         if(user !== undefined){
-            console.log('user=', user);
             this.setState({ user: {ID: user.ID, UserName: user.UserName, Wins: user.Wins}},() => this.getLeaders())
         } else {
             this.props.navigation.navigate('Game');
@@ -43,9 +37,7 @@ class Performance extends React.Component {
                     'Content-Type': 'application/json; charset=UTF-8'
                 })
             })
-            console.log('response=', response);
             const res = await Promise.resolve(response.json());
-            console.log('res=', res);
             this.setState({ leaders: res},()=> this.calculate())
           }
           catch{
@@ -57,7 +49,6 @@ class Performance extends React.Component {
         const { leaders, user } = this.state;
         const userId = user.ID;
         const ifLead = leaders.includes(user);
-        console.log('ifLead=', ifLead)
         if(leaders.every((currentValue) => currentValue.ID != userId)){//outside the list
             const max = Math.max.apply(Math, leaders.map(function(o) { return o.Wins; }))
             const min = Math.min.apply(Math, leaders.map(function(o) { return o.Wins; }))
