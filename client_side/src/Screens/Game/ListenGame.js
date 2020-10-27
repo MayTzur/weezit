@@ -1,12 +1,6 @@
-import React from 'react';
-import {firebase, db} from './Firebase';
-import { storageKeys, save, read, deleteAll, deleteItem } from '../../Storage';
-import { STATE } from './GameActions';
+import { db } from './Firebase';
 
-const ref = db.ref('/games');
-
-const newFormat = (questionsRes) => { //check!
-  console.log('newFormat function:');
+const newFormat = (questionsRes) => { 
   const newFormat = questionsRes.map((questionObj) => {
       const arr = questionObj.incorrect_answers;
       arr.push(questionObj.correct_answer);
@@ -17,13 +11,11 @@ const newFormat = (questionsRes) => { //check!
   return newFormat;
 }
 
-const shuffleOptionArray = (array) => { //check!
-  console.log('shuffleOptionArray function:');
+const shuffleOptionArray = (array) => { 
   let max = array.length;
   let temp;
   let index;
 
-  // While there are elements in the array
   while (max > 0) {
       index = Math.floor(Math.random() * max);
       max--;
@@ -35,8 +27,7 @@ const shuffleOptionArray = (array) => { //check!
 }
 
 
-const FetchQuestion = async() => { //check!
-  console.log('FetchQuestion function:');
+const FetchQuestion = async() => { 
   try{
       const request = {
           method: 'GET',
@@ -46,11 +37,8 @@ const FetchQuestion = async() => { //check!
       }
       const url = 'https://opentdb.com/api.php?amount=10&category=26';
       let response = await fetch(url, request);
-      //console.log('response= ', response.json());
       const res = await response.json();
-      //console.log('res= ', res.results);
       const questions = await res.results
-      //console.log('questions=',questions);
       return await newFormat(questions);
   }
   catch(error){
@@ -59,16 +47,10 @@ const FetchQuestion = async() => { //check!
 }
 
 const takeQuestion = async(pointer, gameKey) => {
-  console.log('takeQuestion function:');
-  //temp gameKey --- only to check this function!
-
   const questionRef = await db.ref(`/games/${gameKey}/questionsList/${pointer}/`)
   .once("value", (snapshot) => {
-    console.log(snapshot.val());
     return snapshot.val();
   })
-  console.log('questionRef');
-  console.log(questionRef.val());
   return questionRef.val();
 }
 
