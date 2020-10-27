@@ -45,7 +45,6 @@ export const GoGalleryBtn = (props) => {
     return(
         <IconButton
             icon='folder-multiple-image'
-            //color={props.color}
             size={25}
             onPress={props.onPress}
             style={styles.edit}
@@ -57,7 +56,6 @@ export const DeleteImageBtn = (props) => {
     return(
         <IconButton
             icon='image-off'
-            //color={props.color}
             size={25}
             onPress={props.onPress}
             style={styles.edit}
@@ -87,7 +85,6 @@ const styles = StyleSheet.create({
     },
     edit: {
         top: -25, 
-        //right: -35
     }
     ,
     edit1: {
