@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, SafeAreaView, Dimensions, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-//import { Notifications, Linking } from 'expo';
-import {firebase, db} from './Firebase';
+import { View, StyleSheet, ImageBackground, SafeAreaView, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { db } from './Firebase';
 import {  Colors } from 'react-native-paper';
 import { FetchQuestion } from '../../functions/creator';
 import { userState, gameState, deleteGame } from '../../functions/player';
@@ -9,20 +8,16 @@ import { Joining } from '../../functions/joiner';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Icon } from 'react-native-elements';
 import LottieView from 'lottie-react-native';
-//import { Thumbnail } from 'native-base';
+
 const { width, height } = Dimensions.get('screen');
 const ref = db.ref('/games');
-//let creatorRef = null;
-
 
 class WaitingRoom extends React.Component {
     static navigationOptions = {
         headerShown: false,
     };
     constructor(props){   
-        console.log('--- WaitingRoom Component ---');     
         super(props);      
-        //this.timeout;
         this.gameRef;
         this.newGameRef;
 
@@ -43,20 +38,16 @@ class WaitingRoom extends React.Component {
         }
     }
 
-    componentDidMount(){// --- checked
+    componentDidMount(){
         const { user } = this.props.navigation.state.params;
-        console.log('user=', user);
-        console.log('*** componentDidMount function ***');
         if(user !== undefined){
-            console.log('user=', user);
             this.setState({ user: user},() => this.findGames())
         } else {
             this.props.navigation.navigate('Game');
         }
     }
 
-    findGames = () => {// ---
-        console.log('*** findGames function ***');
+    findGames = () => {
         try{
             let keys = [];
             let userId = this.state.user.ID;
@@ -66,20 +57,18 @@ class WaitingRoom extends React.Component {
             gameRef
             .once('value')
             .then((snap) => {
-                console.log('snap=', snap.val());
                 if(snap.val() !== null){
                     snap.forEach((data) => {
                         if(userId !== data.val().creator.id && oldKeys.every((currentValue) => currentValue != data.key)){
-                            console.log('data.key=', data.key);
                             keys.push(data.key)
                         }
                     })
-                    if(keys.length === 0){//create
+                    if(keys.length === 0){
                         this.createGame();
                     } else {
                         this.setState({ keysArr: keys },() => this.joining())
                     }
-                } else {//no games to join them at all - create game
+                } else {
                     this.createGame();
                 }             
             })
@@ -89,8 +78,7 @@ class WaitingRoom extends React.Component {
         }
     }
 
-    joining = async () => {//
-        console.log('*** joining function ***');
+    joining = async () => {
         const { keysArr, oldKeys, isCreator, user } = this.state;  
         let toStop = false;
         let currentIndex = 0;
@@ -100,8 +88,7 @@ class WaitingRoom extends React.Component {
             temp.push(keysArr[currentIndex]);
             this.setState({oldKeys: temp});          
             toStop = await Joining(keysArr[currentIndex], user);
-            console.log('toStop=', toStop)
-            if(toStop){//true === success    
+            if(toStop){  
                 this.props.navigation.navigate('Board', { id: user.ID, key: keysArr[currentIndex], isCreator: isCreator })           
                 break;
             } else {
@@ -113,12 +100,11 @@ class WaitingRoom extends React.Component {
         }
     }
 
-    goBack = () => { // --- checked       
+    goBack = () => {    
         this.setState({ showAlert: true, colorAlert: Colors.red200, msgAlert: 'Are you sure you want to stop looking for a game?', titleAlert: 'Just in case,' })
     }
 
-    createGame = async() => { // --- checked
-        console.log('*** createGame function ***');
+    createGame = async() => {
         const { user } = this.state;
         this.setState({ isCreator: true })
         const questions = await FetchQuestion();      
@@ -135,7 +121,6 @@ class WaitingRoom extends React.Component {
                 creatingTime: start,
             })
             .catch((error) => { console.log('error ', error) })
-            console.log('newKey: ',newGameRef.key);
              this.setState({ gameKey: newGameRef.key},() => this.listener());        
         }
         catch (error) {
@@ -143,10 +128,10 @@ class WaitingRoom extends React.Component {
         }
     }
 
-    onConfirm = () => {// ---
+    onConfirm = () => {
         const { gameKey, isCreator } = this.state;
         this.setState({ showAlert: false});
-        if(isCreator){//remove game && go back
+        if(isCreator){
             deleteGame(gameKey);            
             this.props.navigation.navigate('Game');
         } else {
@@ -154,7 +139,7 @@ class WaitingRoom extends React.Component {
         }
     }
 
-    onCancel = () => {// ---
+    onCancel = () => {
         this.setState({ showAlert: false});
     }
 
@@ -164,12 +149,10 @@ class WaitingRoom extends React.Component {
         this.props.navigation.navigate('Board', { id: user.ID, key: gameKey, isCreator: isCreator })
     }
 
-    listener = () => { // ---
-        console.log('*** listener function ***');
+    listener = () => { 
         const { gameKey, user } = this.state;
         this.gameRef = ref.child(gameKey);
         this.gameRef.on('child_changed', (snap) => { //someone joined
-            console.log('snap=', snap.node_.value_); 
             if(snap.key === 'state'){
                 this.childChangeEffect();
             }
@@ -244,9 +227,6 @@ const styles = StyleSheet.create({
     iconContainer: {
         flexDirection: 'row',
         padding: 10,
-        //borderRadius: 0,
-        //borderColor: Colors.greenA700,
-        //borderWidth: 1,
         alignItems: 'center',
         width: width/1.2,
         justifyContent: 'center',
