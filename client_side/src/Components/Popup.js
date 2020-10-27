@@ -7,22 +7,13 @@ export class ModalAlert extends React.Component {
   constructor(props){
     console.log('ModalAlert props=', props);
     super(props)
-    //this.key = props.key;
     this.state = { isShow: props.isVisible, answer: '', key: props.data }
   }
-  
-
-  /*componentDidMount(){ 
-    console.log('isVisible props=', this.props.isVisible);
-    //this.state.isShow = this.props.isVisible 
-    this.setState({ isShow: this.props.isVisible})
-  }*/
 
   handleUrl = () => {
     const { key, answer } = this.state;
     console.log('CancelGame function');
-    let redirectUrl = 'exp://192.168.8.84:19000/--/waitingRoom/key';//waitingRoom/'+key
-    //Linking.makeUrl('exp://192.168.8.84:19000/--/game/waitingRoom', { key: this.state.key, ans: this.state.answer });
+    let redirectUrl = 'exp://192.168.8.84:19000/--/waitingRoom/key';
     console.log('redirectUrl=', redirectUrl);
     Linking.openURL(redirectUrl)
   }
@@ -63,7 +54,6 @@ export class ModalAlert extends React.Component {
 
 export const ModalHelper = (props) => {
     console.log('ModalAlert props=', props);
-    //const key = useRef(props.key);
     const isShow = useRef(props.isVisible);
     const [answer, setAnswer] = useState("");
     useEffect(() => {        
@@ -78,7 +68,7 @@ export const ModalHelper = (props) => {
         console.log("answer", answer);
         console.log("isShow", isShow);
       }, [answer]);
-   /* */
+  
     return(
         <Modal
             animationType="slide"
@@ -108,10 +98,8 @@ export const AlertGame = (props) => {
     useEffect(() => {
         console.log('AlertGame answer=', answer);
         if(answer == 'PLAY'){           
-            //linking to board game + close
             setShowAlert(false);
         } else if (answer == 'CANCEL'){
-            //remove game + tell the joiner that game was removed + close
             setShowAlert(false);
         }
     })
@@ -149,7 +137,6 @@ export class AlertHelper {
     }
   
     static show(type, title, message) {
-        //console.log('this.dropDown=', this.dropDown);
       if (this.dropDown) {
         this.dropDown.alertWithType(type, title, message);
       }
