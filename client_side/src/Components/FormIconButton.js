@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import { IconButton } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('screen');
 
