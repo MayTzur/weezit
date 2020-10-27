@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated } from 'react-native';
 
 export default class TextAnimator extends React.Component {
   animatedValues = [];
