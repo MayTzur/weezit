@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, Text } from 'react-native';
 import Dialog from 'react-native-dialog';
-//import ConfirmDialog  from 'react-native-simple-dialogs';
 
 export const GetDialog = (props) => {
     return(     
