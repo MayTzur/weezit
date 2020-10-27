@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Dimensions, FlatList, View } from 'react-native';
 import { Headline, Subheading } from 'react-native-paper';
 
-const { width, height } = Dimensions.get('screen');
-
 const renderItem = ({ item }) => {
     console.log('renderItem function:');
     let sentence = '';
