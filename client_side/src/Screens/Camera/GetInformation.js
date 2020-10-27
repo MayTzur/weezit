@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import { Container, Left } from 'native-base';
+import React from 'react';
+import { Container } from 'native-base';
 
-const getBiography = async (personId) => {
-    console.log('getBiography function:');
- 
+const getBiography = async (personId) => { 
     const biography_api = `https://api.themoviedb.org/3/person/${personId}/translations?api_key=b306387c577add422568c903b1cbb052&language=en-US&query=Mark%20Salling&language=en-US`;
     let request = {
         method: 'GET',
@@ -13,21 +11,16 @@ const getBiography = async (personId) => {
     }
     try {
         const response = await fetch(biography_api, request);
-        console.log('response= ', response);
-        console.log('response.status= ' + response.status);
         const res = await response.json();
-        console.log('res= ', res.translations);
         let biography;
         res.translations.map(trans => {
             if(trans.name == 'English'){
                 biography = trans.data.biography
             }
         })
-        console.log('biography:', biography);
         return biography;
     }
     catch (err) {
-        console.log('error: ' + err);
         return err;
     }
 }
