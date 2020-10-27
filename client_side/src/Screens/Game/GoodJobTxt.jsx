@@ -1,11 +1,9 @@
-import React, { Component, useEffect, useState } from 'react'
-import { Text, View, StyleSheet} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Text, View } from 'react-native'
 import * as Font from 'expo-font';
 
 export default function GoodJobTxt() {
-    console.log('GoodJobTxt function:');
   const [isFontReady, setFontReady] = useState(false)
-//await Promise.resolve(...)
   useEffect(() => {
     async function loadFont() {
       return await Font.loadAsync({
@@ -25,7 +23,6 @@ export default function GoodJobTxt() {
             fontFamily:'MajorMonoDisplay',
             color: 'black', 
             fontSize: 40,
-            //paddingTop: 30,
             textAlign: 'center'
         }}> Good Job! </Text>}
     </View>
