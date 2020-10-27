@@ -1,5 +1,5 @@
 # weezit
-Final project of studies - Made with Shon Kessel
+Final project of studies - made with Shon Kessel
 
 The project has 2 parts:
 1) Identifying celebrities and presenting the 3 best options
