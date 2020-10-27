@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import { Paragraph, Dialog, Portal, Button } from 'react-native-paper';
 import { storageKeys, save } from '../Storage';
 
