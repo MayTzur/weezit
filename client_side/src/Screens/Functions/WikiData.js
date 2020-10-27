@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function wikiData(data){
     return data.map(d => {
         console.log(d);
