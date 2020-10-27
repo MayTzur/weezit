@@ -1,4 +1,4 @@
-import {firebase, db} from '../Screens/Game/Firebase';
+import { db } from '../Screens/Game/Firebase';
 import { gameState, userState } from '../functions/player';
 let ref = db.ref('/games');
 
@@ -9,7 +9,7 @@ export const Joining = async (currentKey, user) => {
         await ref.child(currentKey)
         .transaction(function(game){
             console.log('-transaction-');
-            if (game === null || game.state !== gameState.waiting) {//to keep on two players in game
+            if (game === null || game.state !== gameState.waiting) {
                 return game;
             } else if(!game.joiner){
                 game.state = gameState.close,
@@ -17,7 +17,6 @@ export const Joining = async (currentKey, user) => {
             } 
             return game;
         }).then((val) =>{
-            console.log('val=', val);
             result = val.committed;
         })
         return result;
