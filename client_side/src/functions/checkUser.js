@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, AsyncStorage } from 'react-native';
-//import TokenPermission  from '../TokenPermission';
+import { AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
@@ -60,19 +58,14 @@ export const updateToken = async (userId) => {
 export const createUser = async () => {
     console.log('createUser function:')
     try{
-        //const token = await TokenPermissions();
         const token = await TokenPermissions();
-        //
-        console.log('token=', token);           
         const path = `http://proj.ruppin.ac.il/bgroup8/prod/serverSide/api/User/Insert/${token}`;
-        //console.log('path=', path);
         fetch(path, {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json; charset=UTF-8'
             })
         }).then(res => {
-            //console.log('res=', res)
             if (res.ok) {
                 return res.json();
             } else {
@@ -80,13 +73,12 @@ export const createUser = async () => {
             }
             })
             .then( data => {
-                console.log('data=', data)
                 AsyncStorage.setItem('id', JSON.stringify(data))                
             })
             
     }
     catch(err){
-        console.log('createUser error=', err)
+        //console.log('createUser error=', err)
         return false;
     }	
 }
@@ -95,7 +87,6 @@ export const getData = async () => {
     console.log('getData from storage:');
     try {
       const jsonValue = await AsyncStorage.getItem('id')
-      //console.log('jsonValue=', jsonValue);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch(e) {
       // error reading value
