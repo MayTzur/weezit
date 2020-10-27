@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import { Banner } from 'react-native-paper';
-const { width, height } = Dimensions.get('screen');
+const { height } = Dimensions.get('screen');
 
 
 export class Helper {
@@ -32,9 +32,6 @@ export class Helper {
 }
 
 export const GetBanner = (props) => {
-    console.log('props=', props);
-   // const [visible, setVisible] = React.useState(props.visible);
-    //const hideModal = () => setVisible(false);
 
     if(props.visible){
         return (
@@ -72,27 +69,12 @@ export const GetBanner = (props) => {
 }
 const styles = StyleSheet.create({
     container: {
-        //flex: 1,
-        //width: width / 1.5,
-        //top: 0,
         height: height / 6,
-        //flex: 1,
-        //flex: 1,
-        //position: 'absolute',
-        //flexWrap: 'wrap',
-        //justifyContent: 'center',
-        //alignItems: 'center',
-        //textAlign: 'auto',
-        //paddingVertical: 20,
-        //zIndex:20,
-        //color: 'black'
     },
     banner: {
-        height: height / 6,
-        flex: 1,
-      //position: 'absolute',
+      height: height / 6,
+      lex: 1,
       flexWrap: 'wrap',
-      //position: 'absolute',
     },
     content: {
         fontSize: 16,
