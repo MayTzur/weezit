@@ -9,7 +9,7 @@ namespace WeezitServer.Models.DAL
 {
     public class DBConnection
     {
-        string strCon = @"Data Source=Media.ruppin.ac.il;Initial Catalog = bgroup8_prod; User ID = bgroup8; Password=bgroup8_16183";
+        string strCon = @"Data Source=Media.******.ac.il;Initial Catalog = *******_****; User ID = *******; Password=*******_*****";
 
         SqlConnection con;
         SqlCommand cmd;
