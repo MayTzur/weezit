@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, ScrollView } from 'react-native';
-import { Headline, Subheading } from 'react-native-paper'; //
+import { Headline, Subheading } from 'react-native-paper'; 
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { Container } from 'native-base';
 import ReviewCard from './ReviewCard';
@@ -29,7 +29,6 @@ class ImageMatch extends React.Component {
 
     postInfo = async () => {
         const { information } = this.state;
-        console.log('postInfo function:');
         const url = server + `/User/InsertUserSearch/`+ this.state.userId;
         let data = {
             Name: information[this.state.counter].name,
@@ -76,7 +75,6 @@ class ImageMatch extends React.Component {
     }
 
     WikiLink = () => {
-        console.log('WikiLink function:');
         const CelebritiTittle = this.state.information[this.state.counter].name;
         const WikiName_Format = CelebritiTittle.replace(" ", '_')
         Linking.openURL(wikipediaUrl + WikiName_Format)
@@ -106,7 +104,7 @@ class ImageMatch extends React.Component {
                             <MaterialCommunityIcons name='arrow-left' size={20} />
                         </TouchableOpacity>
                     </View>
-                    {/* עד פה הכנסתי SCROLLVIEW */}
+            
                 </ScrollView>
                 <Overlay isVisible={this.state.visibleSuccess}>
                     <View style={styles.mach_modal}>
